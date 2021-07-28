@@ -13,7 +13,7 @@ public class TaskDbHelper extends SQLiteOpenHelper {
     private static TaskDbHelper instance = null;
 
     private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + TaskEntry.TABLE_NAME + " (" +
+            "CREATE TABLE IF NOT EXISTS " + TaskEntry.TABLE_NAME + " (" +
                     TaskEntry._ID + " INTEGER PRIMARY KEY," +
                     TaskEntry.COLUMN_NAME_TASK_ID + " VARCHAR(256), " +
                     TaskEntry.COLUMN_NAME_URL + " TEXT, " +
@@ -56,7 +56,7 @@ public class TaskDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(SQL_DELETE_ENTRIES);
+        db.execSQL(SQL_CREATE_ENTRIES);
         onCreate(db);
     }
 
